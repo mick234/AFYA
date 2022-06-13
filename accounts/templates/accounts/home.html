@@ -1,0 +1,50 @@
+{%  include 'accounts/main.html' %}
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title></title>
+  <style type="text/css">
+   .card-img-top {
+    height: 18vw;
+    object-fit: cover;
+    }
+    .card {
+        margin: 0 auto; 
+        float: none; 
+        margin-bottom: 10px;
+    }
+    </style>
+</head>
+<body>
+<section class="section">
+<div class="container">
+<div class="card-columns">
+  {% for p in profile %}
+  <div class="card" style="width: 48rem;">
+  {% if p.image %}
+  <img class="card-img-top" src = "{{ p.image.url }}">
+  {% endif %}
+  <div class="card-body">
+     <label>Name</label>
+     <p class="card-text">{{ p.Username }}</p>
+     <label>Description</label>
+     <p class="card-text">{{ p.description }}</p>
+     <label>Profession</label>
+     <p class="card-text">{{ p.profession }}</p>
+    {% if user.is_authenticated %}
+    {% if p.Username == request.user %}
+    <div class="card-footer bg-transparent border-dark">
+      <a href="update/{{p.id}}" class="btn btn-warning" id = '{{p.id}}'>edit</a>
+    	<a href="{% url 'delete-prod' p.id %}" class="btn btn-danger">Delete</a>
+   </div>
+    {% endif %}
+    {% endif %}
+  </div>
+</div>
+  {% endfor %}
+</div>
+    </div>
+</section>
+</body>
+</html>

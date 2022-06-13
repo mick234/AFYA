@@ -1,0 +1,42 @@
+{%  include 'accounts/home.html' %}
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<section class="section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                {% if user.is_authenticated %}
+                <div class="card">
+                    <div class="card-header">                     
+                    <h2 class="fw-bold">Update Freelance Profile</h2>
+                    </div>
+                  
+                    <div class="card-body">  
+                        <form action="" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <table>
+                            {% for field in freelance %}
+                            <tr>
+                                 <th>{{field.label}}</th>
+                                 <td>{{ field }}</td>
+                            </tr> 
+                            {% endfor %}
+                             </table>
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </form>
+                    </div>
+                </div>
+                {% else %}
+                Not Authenticated
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
